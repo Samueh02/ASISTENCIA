@@ -42,23 +42,25 @@ button:hover {
     background-color: #218838;
 }
 
-/* Contenedor para hacer la tabla desplazable en móviles */
+/* 🛠️ Hacer la tabla desplazable en pantallas pequeñas */
 .table-container {
     width: 100%;
     overflow-x: auto;
     margin-top: 20px;
 }
 
+/* 📌 Ajuste para que la tabla no se corte */
 table {
     width: 100%;
-    min-width: 500px; /* Para que la tabla no se achique demasiado */
+    min-width: 600px; /* Permite que se pueda hacer scroll en móviles */
     border-collapse: collapse;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 8px;
     text-align: center;
+    font-size: 14px; /* Reducimos un poco el tamaño de fuente */
 }
 
 th {
@@ -66,7 +68,7 @@ th {
     color: white;
 }
 
-/* Estilos para móviles */
+/* 📲 Estilos específicos para móviles */
 @media (max-width: 600px) {
     .container {
         width: 95%;
@@ -83,7 +85,14 @@ th {
     }
 
     td button {
-        padding: 6px;
+        padding: 5px;
         font-size: 12px;
+    }
+
+    /* 🎯 Botones más pequeños dentro de la tabla */
+    td button {
+        display: block;
+        margin: 3px auto;
+        width: 100%;
     }
 }
