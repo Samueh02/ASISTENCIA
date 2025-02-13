@@ -38,10 +38,7 @@ Con una interfaz limpia y adaptable, los usuarios pueden añadir asignaturas, ma
 2️⃣ Abrir el archivo **index.html** en cualquier navegador.  
 3️⃣ Comenzar a gestionar tu asistencia y horarios.  
 
-## 📸 Vista Previa  
-<div align="center">
-  <img height="200" src="https://i.pinimg.com/736x/fd/4e/b2/fd4eb2fea658297dffcaf2994f1def25.jpg" />
-</div>
+
 
 ## 📬 Contacto  
 <div align="center">
@@ -49,5 +46,9 @@ Con una interfaz limpia y adaptable, los usuarios pueden añadir asignaturas, ma
   <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo" />
   <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="gmail logo" />
   <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo" />
+
+  <div align="center">
+  <img height="200" src="https://i.pinimg.com/736x/fd/4e/b2/fd4eb2fea658297dffcaf2994f1def25.jpg" />
+</div>
 </div>
 
