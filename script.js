@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    loadSubjects(); // Cargar las asignaturas al abrir la página
+    loadSubjects(); // Cargar asignaturas al abrir la página
 });
 
 function addSubject() {
@@ -36,12 +36,18 @@ function loadSubjects() {
 
         let row = `<tr>
             <td>${subject.name}</td>
-            <td>${subject.attended}</td>
-            <td>${subject.missed}</td>
+            <td>
+                ${subject.attended} 
+                <button onclick="adjustAttendance(${index}, 'attended', 1)">➕</button>
+                <button onclick="adjustAttendance(${index}, 'attended', -1)">➖</button>
+            </td>
+            <td>
+                ${subject.missed} 
+                <button onclick="adjustAttendance(${index}, 'missed', 1)">➕</button>
+                <button onclick="adjustAttendance(${index}, 'missed', -1)">➖</button>
+            </td>
             <td>${attendancePercent}% / ${subject.requiredAttendance}%</td>
             <td>
-                <button onclick="markAttendance(${index}, true)">✔️</button>
-                <button onclick="markAttendance(${index}, false)">❌</button>
                 <button onclick="deleteSubject(${index})">🗑️</button>
             </td>
         </tr>`;
@@ -50,13 +56,13 @@ function loadSubjects() {
     });
 }
 
-function markAttendance(index, attended) {
+function adjustAttendance(index, type, value) {
     let subjects = JSON.parse(localStorage.getItem("subjects"));
 
-    if (attended) {
-        subjects[index].attended += 1;
-    } else {
-        subjects[index].missed += 1;
+    if (type === "attended") {
+        subjects[index].attended = Math.max(0, subjects[index].attended + value); // Evita valores negativos
+    } else if (type === "missed") {
+        subjects[index].missed = Math.max(0, subjects[index].missed + value); // Evita valores negativos
     }
 
     localStorage.setItem("subjects", JSON.stringify(subjects));
