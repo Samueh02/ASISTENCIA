@@ -8,7 +8,7 @@ body {
 
 .container {
     width: 90%;
-    max-width: 500px;
+    max-width: 900px;
     margin: 20px auto;
     background: white;
     padding: 20px;
@@ -16,11 +16,23 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-    color: #333;
+/* 📝 Separación clara entre asistencia y horario */
+.attendance-container, .schedule-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-input, button {
+/* 📌 Estiliza los títulos */
+h1, h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* 📌 Estiliza formularios */
+input, select, button {
     margin: 5px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -38,37 +50,89 @@ button {
     width: auto;
     border: none;
     border-radius: 5px;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
     background-color: #218838;
+    transform: scale(1.05);
 }
 
-/* 🛠️ Hacer la tabla desplazable en pantallas pequeñas */
+/* 🛠️ Hacer las tablas desplazables */
 .table-container {
     width: 100%;
     overflow-x: auto;
     margin-top: 20px;
 }
 
-/* 📌 Ajuste para que la tabla no se corte */
+/* 📌 Ajuste para que las tablas no se desborden */
 table {
     width: 100%;
-    min-width: 600px; /* Permite que se pueda hacer scroll en móviles */
+    min-width: 700px;
     border-collapse: collapse;
+    background: white;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: center;
-    font-size: 14px; /* Reducimos un poco el tamaño de fuente */
+    font-size: 14px;
+    white-space: nowrap;
 }
 
 th {
     background-color: #007bff;
     color: white;
+}
+
+/* 🎯 Mejoras en la apariencia de los botones en la tabla */
+td button {
+    margin: 2px;
+    padding: 5px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+td button:nth-child(1) { background-color: #28a745; color: white; } /* ➕ */
+td button:nth-child(2) { background-color: #dc3545; color: white; } /* ➖ */
+td button:nth-child(3) { background-color: #6c757d; color: white; } /* 🗑️ */
+
+td button:hover {
+    opacity: 0.8;
+}
+
+/* 📌 Espaciado mejorado para el horario */
+#schedule {
+    margin-top: 20px;
+}
+
+#schedule th {
+    background-color: #0056b3;
+    color: white;
+}
+
+#schedule td {
+    background: #f8f9fa;
+    font-size: 14px;
+}
+.clear-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.clear-btn:hover {
+    background-color: #c82333;
 }
 
 /* 📲 Estilos específicos para móviles */
@@ -78,7 +142,11 @@ th {
         padding: 15px;
     }
 
-    input, button {
+    .attendance-container, .schedule-container {
+        padding: 15px;
+    }
+
+    input, select, button {
         width: 100%;
         font-size: 14px;
     }
@@ -97,5 +165,10 @@ th {
         display: block;
         margin: 3px auto;
         width: 100%;
+    }
+
+    /* 📌 Permitir scroll horizontal en la tabla */
+    .table-container {
+        overflow-x: auto;
     }
 }

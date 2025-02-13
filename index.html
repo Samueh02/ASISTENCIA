@@ -9,28 +9,68 @@
 <body>
     <div class="container">
         <h1>Seguimiento de Asistencia</h1>
-        
-        <h2>Añadir Asignatura</h2>
-        <input type="text" id="subjectName" placeholder="Nombre de la asignatura">
-        <input type="number" id="requiredAttendance" placeholder="% Asistencia Requerida">
-        <button onclick="addSubject()">Añadir</button>
-        
-        <h2>Horario</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Asignatura</th>
-                        <th>Asistencias</th>
-                        <th>Faltas</th>
-                        <th>Porcentaje</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="scheduleBody"></tbody>
-            </table>
+
+        <div class="attendance-container">
+            <h2>Añadir Asignatura</h2>
+            <input type="text" id="subjectName" placeholder="Nombre de la asignatura">
+            <input type="number" id="requiredAttendance" placeholder="% Asistencia Requerida">
+            <button onclick="addSubject()">Añadir</button>
+
+            <h2>Lista de Asistencia</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asignatura</th>
+                            <th>Asistencias</th>
+                            <th>Faltas</th>
+                            <th>Porcentaje</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceBody"></tbody>
+                </table>
+            </div>
         </div>
 
+        <div class="schedule-container">
+            <h2>Horario de Clases</h2>
+            <select id="day">
+                <option value="1">Lunes</option>
+                <option value="2">Martes</option>
+                <option value="3">Miércoles</option>
+                <option value="4">Jueves</option>
+                <option value="5">Viernes</option>
+            </select>
+
+            <select id="startTime"></select>
+            <label for="startTime">⏳ Hora de Inicio:</label>
+
+            <select id="endTime"></select>
+            <label for="endTime">⏰ Hora de Fin:</label>
+
+            <input type="text" id="className" placeholder="Nombre de la Clase">
+            <button onclick="addClassToSchedule()">Añadir Clase</button>
+
+            <div class="table-container">
+                <table id="schedule">
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miércoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleTableBody"></tbody>
+                </table>
+            </div>
+            <button onclick="clearSchedule()" class="clear-btn">Vaciar Horario</button>
+
+        </div>
     </div>
 
     <script src="script.js"></script>
