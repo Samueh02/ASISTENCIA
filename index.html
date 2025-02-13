@@ -42,15 +42,21 @@
                 <option value="4">Jueves</option>
                 <option value="5">Viernes</option>
             </select>
-
-            <select id="startTime"></select>
             <label for="startTime">⏳ Hora de Inicio:</label>
 
-            <select id="endTime"></select>
+            <select id="startTime"></select>
             <label for="endTime">⏰ Hora de Fin:</label>
+
+            <select id="endTime"></select>
 
             <input type="text" id="className" placeholder="Nombre de la Clase">
             <button onclick="addClassToSchedule()">Añadir Clase</button>
+
+            <!--
+            <label for="subjectColor">🎨 Color:</label>
+            <input type="color" id="subjectColor" value="#ff0000">
+            -->
+            
 
             <div class="table-container">
                 <table id="schedule">

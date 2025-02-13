@@ -101,7 +101,29 @@ function deleteSubject(index) {
     loadSubjects();
 }
 
+
 /* ======================= HORARIO UNIVERSITARIO ======================= */
+// 🎨 Generar colores aleatorios para asignaturas
+function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// 🔹 Asignar y mantener colores para cada asignatura
+function getSubjectColor(subjectName) {
+    let colors = JSON.parse(localStorage.getItem("subjectColors")) || {};
+    
+    if (!colors[subjectName]) {
+        colors[subjectName] = getRandomColor();
+        localStorage.setItem("subjectColors", JSON.stringify(colors));
+    }
+    
+    return colors[subjectName];
+}
 
 function generateTimeOptions() {
     let startTimeSelect = document.getElementById("startTime");
@@ -140,7 +162,6 @@ function addClassToSchedule() {
     let [startHour, startMin] = startTime.split(":").map(Number);
     let [endHour, endMin] = endTime.split(":").map(Number);
 
-    // 🔴 Verificación clave para evitar errores
     if (startHour > endHour || (startHour === endHour && startMin >= endMin)) {
         alert("⛔ La hora de inicio debe ser menor que la hora de fin.");
         return;
@@ -180,9 +201,10 @@ function loadSchedule() {
     }
 
     let schedule = JSON.parse(localStorage.getItem("schedule")) || {};
+    let subjectColors = JSON.parse(localStorage.getItem("subjectColors")) || {};
+    
     scheduleTableBody.innerHTML = "";
 
-    // 🔴 Extraer las horas únicas y ordenarlas correctamente
     let times = Object.keys(schedule)
         .map(key => key.split("-")[1])
         .filter(time => time)
@@ -200,40 +222,97 @@ function loadSchedule() {
     let uniqueTimes = [...new Set(times)];
 
     uniqueTimes.forEach(time => {
-        let row = `<tr>
-            <td>${time}</td>
-            <td>${schedule[`1-${time}`] || ""}</td>
-            <td>${schedule[`2-${time}`] || ""}</td>
-            <td>${schedule[`3-${time}`] || ""}</td>
-            <td>${schedule[`4-${time}`] || ""}</td>
-            <td>${schedule[`5-${time}`] || ""}</td>
-            <td><button onclick="removeClassFromSchedule('${time}')">🗑️</button></td>
-        </tr>`;
+        let row = `<tr><td><strong>${time}</strong></td>`;
 
+        for (let day = 1; day <= 5; day++) {
+            let className = schedule[`${day}-${time}`] || "";
+            let bgColor = className ? subjectColors[className] || getSubjectColor(className) : "transparent";
+
+            row += `<td style="background-color: ${bgColor}; padding: 10px; border-radius: 5px; position: relative; cursor: pointer;"
+                        ondblclick="editClassName('${day}', '${time}', this)"
+                        onmouseover="showDeleteButton(this)"
+                        onmouseout="hideDeleteButton(this)">
+                        ${className ? `<span style="color: white; font-weight: bold;">${className}</span>` : ""}
+                        ${className ? `<button class="delete-btn" onclick="removeSingleClass('${day}', '${time}')" 
+                        style="display: none; position: absolute; top: 5px; right: 5px; background: rgba(220, 53, 69, 0.9); color: white; border: none; padding: 2px 6px; cursor: pointer; border-radius: 50%; font-size: 12px;">
+                        ✖</button>` : ""}
+                    </td>`;
+        }
+
+        row += `</tr>`;
         scheduleTableBody.innerHTML += row;
     });
 
     console.log("📅 Horario cargado y ordenado:", schedule);
 }
 
+// 🔹 Mostrar el botón eliminar solo al pasar el mouse
+function showDeleteButton(cell) {
+    let btn = cell.querySelector(".delete-btn");
+    if (btn) btn.style.display = "inline-block";
+}
 
-function removeClassFromSchedule(time) {
+// 🔹 Ocultar el botón eliminar cuando se sale del mouse
+function hideDeleteButton(cell) {
+    let btn = cell.querySelector(".delete-btn");
+    if (btn) btn.style.display = "none";
+}
+
+function editClassName(day, time, cell) {
     let schedule = JSON.parse(localStorage.getItem("schedule")) || {};
+    let key = `${day}-${time}`;
 
-    Object.keys(schedule).forEach(key => {
-        if (key.includes(`-${time}`)) {
-            delete schedule[key];
+    let currentText = schedule[key] || "";
+    let input = document.createElement("input");
+    input.type = "text";
+    input.value = currentText;
+    input.style.width = "80%";
+    input.style.fontSize = "14px";
+    input.style.fontWeight = "bold";
+    input.style.border = "none";
+    input.style.background = "rgba(255, 255, 255, 0.8)";
+    input.style.color = "#333";
+    input.style.textAlign = "center";
+
+    input.addEventListener("blur", function () {
+        let newValue = input.value.trim();
+        if (newValue) {
+            schedule[key] = newValue;
+            localStorage.setItem("schedule", JSON.stringify(schedule));
+            loadSchedule();
+        } else {
+            loadSchedule();
         }
     });
 
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            input.blur();
+        }
+    });
+
+    cell.innerHTML = "";
+    cell.appendChild(input);
+    input.focus();
+}
+
+function removeSingleClass(day, time) {
+    let schedule = JSON.parse(localStorage.getItem("schedule")) || {};
+    let key = `${day}-${time}`;
+
+    if (schedule[key]) {
+        delete schedule[key];
+    }
+
     localStorage.setItem("schedule", JSON.stringify(schedule));
-    console.log(`❌ Clase eliminada a las ${time}`);
     loadSchedule();
 }
+
 function clearSchedule() {
     if (confirm("¿Estás seguro de que quieres vaciar todo el horario? Esta acción no se puede deshacer.")) {
-        localStorage.removeItem("schedule"); // 🗑️ Borra el horario almacenado
-        loadSchedule(); // 🔄 Recarga la tabla vacía
+        localStorage.removeItem("schedule");
+        localStorage.removeItem("subjectColors");
+        loadSchedule();
         console.log("✅ Horario vaciado correctamente.");
     }
 }

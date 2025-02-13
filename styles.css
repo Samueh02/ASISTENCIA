@@ -134,6 +134,11 @@ td button:hover {
 .clear-btn:hover {
     background-color: #c82333;
 }
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
 
 /* 📲 Estilos específicos para móviles */
 @media (max-width: 600px) {
