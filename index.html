@@ -10,6 +10,17 @@
     <div class="container">
         <h1>Seguimiento de Asistencia</h1>
 
+        <!-- 📌 Instrucciones para el usuario -->
+        <div class="instructions">
+            <h2>📖 Instrucciones</h2>
+            <p>📌 <strong>Añadir asignatura:</strong> Escribe el nombre de la asignatura y el porcentaje mínimo de asistencia requerido, luego pulsa <b>"Añadir"</b>.</p>
+            <p>📌 <strong>Gestionar asistencia:</strong> Usa los botones <span style="color:green;">➕</span> y <span style="color:red;">➖</span> para registrar asistencias y faltas.</p>
+            <p>📌 <strong>Añadir clase al horario:</strong> Selecciona el día, la hora de inicio y fin, introduce el nombre de la clase y pulsa <b>"Añadir Clase"</b>.</p>
+            <p>📌 <strong>Editar horario:</strong> Doble clic sobre el nombre de una clase para modificarlo.</p>
+            <p>📌 <strong>Eliminar clases:</strong> Pasa el cursor sobre una clase y pulsa <b>"✖"</b> para eliminarla individualmente.</p>
+            <p>📌 <strong>Vaciar todo el horario:</strong> Usa el botón <b>"Vaciar Horario"</b> si deseas reiniciar el horario completamente.</p>
+        </div>
+
         <div class="attendance-container">
             <h2>Añadir Asignatura</h2>
             <input type="text" id="subjectName" placeholder="Nombre de la asignatura">
@@ -52,12 +63,6 @@
             <input type="text" id="className" placeholder="Nombre de la Clase">
             <button onclick="addClassToSchedule()">Añadir Clase</button>
 
-            <!--
-            <label for="subjectColor">🎨 Color:</label>
-            <input type="color" id="subjectColor" value="#ff0000">
-            -->
-            
-
             <div class="table-container">
                 <table id="schedule">
                     <thead>
@@ -75,7 +80,6 @@
                 </table>
             </div>
             <button onclick="clearSchedule()" class="clear-btn">Vaciar Horario</button>
-
         </div>
     </div>
 
